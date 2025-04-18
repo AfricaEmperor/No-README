@@ -8,6 +8,11 @@ from routes import blessing
 app = FastAPI()
 app.include_router(blessing.router)
 
+@app.get("/")
+def root():
+    return {"message": "Welcome to the Yemoja Grid API. Visit /docs for the full interface."}
+
+
 # In-Memory Data Stores (Prototype Only)
 agents = {}
 tasks = {}
