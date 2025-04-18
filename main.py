@@ -3,8 +3,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 from uuid import uuid4
+from routes import blessing
 
 app = FastAPI()
+app.include_router(blessing.router)
 
 # In-Memory Data Stores (Prototype Only)
 agents = {}
@@ -64,7 +66,6 @@ def update_task_status(task_id: str, status: str):
     tasks[task_id].status = status
     return {"message": "Task status updated.", "status": status}
 
-# Example agent registration for testing
 @app.on_event("startup")
 def setup_initial_agents():
     agents["ana"] = Agent(id="ana", name="Ana", role="Systems Architect", divisions=["core", "rituals"])
